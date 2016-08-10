@@ -15,6 +15,9 @@
 		B84DC0E21D5B5BED002BC517 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B84DC0E01D5B5BED002BC517 /* LaunchScreen.storyboard */; };
 		B84DC0ED1D5B5BED002BC517 /* JFWeatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84DC0EC1D5B5BED002BC517 /* JFWeatherTests.swift */; };
 		B84DC0F81D5B5BED002BC517 /* JFWeatherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84DC0F71D5B5BED002BC517 /* JFWeatherUITests.swift */; };
+		B84DC1071D5B5F40002BC517 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84DC1061D5B5F40002BC517 /* MainViewController.swift */; };
+		B84DC1091D5B5F68002BC517 /* LeftTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84DC1081D5B5F68002BC517 /* LeftTableViewController.swift */; };
+		B84DC10B1D5B5F95002BC517 /* RightTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84DC10A1D5B5F95002BC517 /* RightTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		B84DC0F31D5B5BED002BC517 /* JFWeatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JFWeatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B84DC0F71D5B5BED002BC517 /* JFWeatherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JFWeatherUITests.swift; sourceTree = "<group>"; };
 		B84DC0F91D5B5BED002BC517 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B84DC1061D5B5F40002BC517 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		B84DC1081D5B5F68002BC517 /* LeftTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftTableViewController.swift; sourceTree = "<group>"; };
+		B84DC10A1D5B5F95002BC517 /* RightTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +105,7 @@
 		B84DC0D31D5B5BED002BC517 /* JFWeather */ = {
 			isa = PBXGroup;
 			children = (
+				B84DC1051D5B5F0A002BC517 /* Menu */,
 				B84DC0D41D5B5BED002BC517 /* AppDelegate.swift */,
 				B84DC0D61D5B5BED002BC517 /* ViewController.swift */,
 				B84DC0D81D5B5BED002BC517 /* Main.storyboard */,
@@ -126,6 +133,16 @@
 				B84DC0F91D5B5BED002BC517 /* Info.plist */,
 			);
 			path = JFWeatherUITests;
+			sourceTree = "<group>";
+		};
+		B84DC1051D5B5F0A002BC517 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				B84DC1061D5B5F40002BC517 /* MainViewController.swift */,
+				B84DC1081D5B5F68002BC517 /* LeftTableViewController.swift */,
+				B84DC10A1D5B5F95002BC517 /* RightTableViewController.swift */,
+			);
+			name = Menu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,9 +276,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B84DC10B1D5B5F95002BC517 /* RightTableViewController.swift in Sources */,
+				B84DC1091D5B5F68002BC517 /* LeftTableViewController.swift in Sources */,
 				B84DC0D71D5B5BED002BC517 /* ViewController.swift in Sources */,
 				B84DC0DD1D5B5BED002BC517 /* JFWeather.xcdatamodeld in Sources */,
 				B84DC0D51D5B5BED002BC517 /* AppDelegate.swift in Sources */,
+				B84DC1071D5B5F40002BC517 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,6 +506,7 @@
 				B84DC0FE1D5B5BED002BC517 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B84DC0FF1D5B5BED002BC517 /* Build configuration list for PBXNativeTarget "JFWeatherTests" */ = {
 			isa = XCConfigurationList;
@@ -494,6 +515,7 @@
 				B84DC1011D5B5BED002BC517 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B84DC1021D5B5BED002BC517 /* Build configuration list for PBXNativeTarget "JFWeatherUITests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +524,7 @@
 				B84DC1041D5B5BED002BC517 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
