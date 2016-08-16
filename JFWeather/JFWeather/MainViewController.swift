@@ -15,7 +15,7 @@ class MainViewController: UIViewController {
 
         self.title = "飓风天气"
         
-        
+        self.view.backgroundColor  = UIColor.purpleColor()
         // Do any additional setup after loading the view.
     }
 
