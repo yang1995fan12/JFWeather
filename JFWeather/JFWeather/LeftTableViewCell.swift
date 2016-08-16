@@ -10,9 +10,25 @@ import UIKit
 
 class LeftTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var weekDayLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    
+    @IBOutlet weak var weatherBgView: UIView!
+    
+    @IBOutlet weak var weatherLabel: UILabel!
+    
+    @IBOutlet weak var temperatureLabel: UILabel!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        self.selectionStyle = .None
+        
+        //设置圆角
+        self.weatherBgView.layer.cornerRadius = 8.0
+        self.weatherBgView.layer.masksToBounds = true
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
