@@ -9,17 +9,27 @@
 import UIKit
 
 class RightTableViewController: UITableViewController {
+    
+    //需要从本地做存储
+    let historyCity = ["广州","深圳","上海","赣州","宁都"]
+    
+    let section0Title = ["提醒","设置","支持"]
+    let section0Image = ["reminder","setting_right","contact"]
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         
-        self.view.backgroundColor = UIColor.blackColor()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.view.backgroundColor = leftControllerAndRightControllerBGColor
+        
+        let nib = UINib(nibName: "RightTableViewCell",bundle: NSBundle.mainBundle())
+        self.tableView.registerNib(nib, forCellReuseIdentifier: "reuseIdentifier")
+        
+        self.tableView.rowHeight = 70
+        
+        self.tableView.separatorStyle = .None
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,25 +40,81 @@ class RightTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        
+        return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        
+        if section == 0 {
+            return 3
+        } else {
+            return 2 + historyCity.count
+        }
     }
 
-    /*
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
+        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as!
+        RightTableViewCell
+        
+        if indexPath.section == 0 {
+            
+            cell.titleLabel.text = section0Title[indexPath.row]
+            cell.indicatorImageView.image = UIImage(named: section0Image [indexPath.row])
+            cell.deleteImageView.hidden = true
+            
+        } else {
+            
+            if indexPath.row == 0 {
+                cell.titleLabel.text = "添加"
+                cell.indicatorImageView.image = UIImage(named: "addcity")
+                cell.deleteImageView.hidden = true
+            }
+            else if indexPath.row == 1 {
+                cell.titleLabel.text = "定位"
+                cell.indicatorImageView.image = UIImage(named: "city")
+                cell.deleteImageView.hidden = true
+            }
+            else {
+                cell.titleLabel.text = historyCity[indexPath.row - 2]
+                cell.indicatorImageView.image = UIImage(named: "city")
+                
+                cell.deleteImageView.hidden = false
+            }
+            
+            
+            
+        }
 
         return cell
     }
-    */
+    
 
+    override func tableView(tableView:UITableView,heightForHeaderInSection section:Int) -> CGFloat {
+        if section == 0 {
+            return CGFloat(0)
+        } else {
+            return CGFloat(30)
+        }
+    }
+    
+    override func tableView(tableView:UITableView,viewForHeaderInSection section:Int) -> UIView? {
+        
+        if section == 0 {
+            let label = UILabel(frame:CGRectMake(0,0,self.view.frame.size.width,30))
+            return label
+            
+        } else {
+            let label = UILabel(frame:CGRectMake(0,0,self.view.frame.size.width,30))
+            label.text = "城市管理"
+            label.textAlignment = .Center
+            label.backgroundColor = UIColor.blackColor()
+            label.textColor = UIColor.whiteColor()
+            return label
+            
+        }
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
