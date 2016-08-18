@@ -51,7 +51,7 @@ class ViewController: UIViewController {
         
         
         //添加滑动手势
-        let pan = UIPanGestureRecognizer(target: self, action: "panAction:")
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(panAction))
         
         self.mainViewController?.view.addGestureRecognizer(pan)
     }

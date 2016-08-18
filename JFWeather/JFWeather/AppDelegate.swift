@@ -16,7 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        //配置导航控制器
+        UINavigationBar.appearance().setBackgroundImage(UIImage(),forBarPosition: .Any,barMetrics: .Default)
+        UINavigationBar.appearance().shadowImage = UIImage()
+        
         return true
     }
 
