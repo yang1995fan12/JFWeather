@@ -57,7 +57,6 @@ class ViewController: UIViewController {
     }
     
     func panAction(sender:UIPanGestureRecognizer){
-        print("滑动屏幕")
         
         //获取手指的位置
         let point = sender.translationInView(sender.view)

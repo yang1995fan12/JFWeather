@@ -94,6 +94,24 @@ class Tool {
         
     }
     
+    //返回天气的类型
+    class func returnWeatherType(weatherType:String)->String {
+        let weatherTypePath = NSBundle.mainBundle().pathForResource("weatherBG", ofType: "plist")
+        if weatherTypePath != nil {
+            let json = NSDictionary(contentsOfFile: weatherTypePath!)
+            
+            for element in (json?.allKeys)! {
+                if weatherType.hasPrefix(element as! String) {
+
+                    return element as! String
+                }
+            }
+        }
+        
+        return weatherType
+        
+    }
+    
     //将年月日的时间类型转换成月日的时间类型
     class func retrunNeedDay(getDateString:String)->String {
         let dateFormatter = NSDateFormatter()

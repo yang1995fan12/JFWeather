@@ -24,12 +24,12 @@ class LeftTableViewController: UITableViewController {
         
         self.tableView.separatorStyle = .None
         
-        //注册一个通知（执行refreshData方法）
+        //接收到通知（执行refreshData方法）
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(refreshData), name: LeftControllerTypeChangedNotification, object: nil)
     }
     
     func refreshData(sender:NSNotification) {
-        print(sender.userInfo)
+        //print(sender.userInfo)
         let info = sender.userInfo!["data"] as! NSArray
         
         for ele in info {
@@ -66,7 +66,7 @@ class LeftTableViewController: UITableViewController {
         cell.dateLabel.text = Tool.retrunNeedDay(dayWeatherInfo.days!)
         cell.weekDayLabel.text = Tool.returnWeekDay(dayWeatherInfo.week!)
         cell.temperatureLabel.text = dayWeatherInfo.temp_low! + "~" + dayWeatherInfo.temp_high!
-        cell.weatherLabel.text = dayWeatherInfo.weather
+        cell.weatherLabel.text = Tool.returnWeatherType(dayWeatherInfo.weather!)
         cell.weatherBgView.backgroundColor = Tool.returnWeatherBGColor(dayWeatherInfo.weather!)
         
         if indexPath.row == 0 {

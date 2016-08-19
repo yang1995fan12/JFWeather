@@ -10,7 +10,7 @@ import UIKit
 
 class MainViewController: UIViewController,NSXMLParserDelegate {
     
-    var imgView:UIImageView!
+    var myTableView:UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +19,15 @@ class MainViewController: UIViewController,NSXMLParserDelegate {
         self.layoutNavigationBar(Tool.returnDate(NSDate()), weekDay: Tool.returnWeekDay(NSDate()), cityName: "深圳")
         
         self.requst("深圳")
+        
+        self.myTableView = UITableView(frame: self.view.bounds,style: .Plain)
+        self.view.addSubview(self.myTableView)
+        
+        //第三方下拉刷新
+        self.myTableView.mj_header = MJRefreshHeader(refreshingBlock: { () -> Void in
+            
+        })
+        self.myTableView.mj_header.beginRefreshing()
     }
     
     func layoutNavigationBar(date:String,weekDay:String,cityName:String) {
@@ -79,10 +88,13 @@ class MainViewController: UIViewController,NSXMLParserDelegate {
                 let array = weatherInfo!["result"] as! NSArray
                 let dic = array[0] as! NSDictionary
                 let dayWeather = WeatherInfo(dic: dic)
-                print(dayWeather.weather)
+                //print(dayWeather.weather)
                 //更新UI必须要返回主线程执行
                 dispatch_async(dispatch_get_main_queue(),{
                     self.view.backgroundColor = Tool.returnWeatherBGColor(dayWeather.weather!)
+                    self.myTableView.backgroundColor = Tool.returnWeatherBGColor(dayWeather.weather!)
+                    self.navigationController?.navigationBar.backgroundColor = Tool.returnWeatherBGColor(dayWeather.weather!)
+                    //发送通知
                     NSNotificationCenter.defaultCenter().postNotificationName(LeftControllerTypeChangedNotification, object: nil, userInfo: ["data":array])
                 })
                 
