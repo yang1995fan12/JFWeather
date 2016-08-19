@@ -12,6 +12,8 @@ class MainViewController: UIViewController,NSXMLParserDelegate {
     
     var myTableView:UITableView!
     
+    let header = MJRefreshNormalHeader()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,11 +25,16 @@ class MainViewController: UIViewController,NSXMLParserDelegate {
         self.myTableView = UITableView(frame: self.view.bounds,style: .Plain)
         self.view.addSubview(self.myTableView)
         
-        //第三方下拉刷新
-        self.myTableView.mj_header = MJRefreshHeader(refreshingBlock: { () -> Void in
-            
-        })
-        self.myTableView.mj_header.beginRefreshing()
+//        //MJRefresh  下拉刷新
+        
+        self.myTableView.mj_header = header
+        
+        header.refreshingBlock = {
+            print("下拉刷新")
+            self.layoutNavigationBar(Tool.returnDate(NSDate()), weekDay: Tool.returnWeekDay(NSDate()), cityName: "宁都")
+            self.requst("宁都")
+        }
+        
     }
     
     func layoutNavigationBar(date:String,weekDay:String,cityName:String) {
@@ -96,6 +103,9 @@ class MainViewController: UIViewController,NSXMLParserDelegate {
                     self.navigationController?.navigationBar.backgroundColor = Tool.returnWeatherBGColor(dayWeather.weather!)
                     //发送通知
                     NSNotificationCenter.defaultCenter().postNotificationName(LeftControllerTypeChangedNotification, object: nil, userInfo: ["data":array])
+                    
+                    //停止刷新
+                    self.header.endRefreshing()
                 })
                 
                 
