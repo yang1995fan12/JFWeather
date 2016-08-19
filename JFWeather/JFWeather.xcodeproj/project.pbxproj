@@ -20,6 +20,8 @@
 		B84DC10B1D5B5F95002BC517 /* RightTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84DC10A1D5B5F95002BC517 /* RightTableViewController.swift */; };
 		B89F2AB11D62EC6600CD618D /* LeftTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89F2AAF1D62EC6600CD618D /* LeftTableViewCell.swift */; };
 		B89F2AB21D62EC6600CD618D /* LeftTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B89F2AB01D62EC6600CD618D /* LeftTableViewCell.xib */; };
+		B8BCF0551D66D2BD00BF46A4 /* weatherBG.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8BCF0541D66D2BD00BF46A4 /* weatherBG.plist */; };
+		B8BCF05A1D66E09E00BF46A4 /* WeatherInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BCF0591D66E09E00BF46A4 /* WeatherInfo.swift */; };
 		B8DAB5BC1D660E1900235006 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DAB5BB1D660E1900235006 /* Tool.swift */; };
 		B8F10D8B1D64599B003FA712 /* RightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F10D891D64599B003FA712 /* RightTableViewCell.swift */; };
 		B8F10D8C1D64599B003FA712 /* RightTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8F10D8A1D64599B003FA712 /* RightTableViewCell.xib */; };
@@ -63,6 +65,8 @@
 		B84DC10A1D5B5F95002BC517 /* RightTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightTableViewController.swift; sourceTree = "<group>"; };
 		B89F2AAF1D62EC6600CD618D /* LeftTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftTableViewCell.swift; sourceTree = "<group>"; };
 		B89F2AB01D62EC6600CD618D /* LeftTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeftTableViewCell.xib; sourceTree = "<group>"; };
+		B8BCF0541D66D2BD00BF46A4 /* weatherBG.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = weatherBG.plist; sourceTree = "<group>"; };
+		B8BCF0591D66E09E00BF46A4 /* WeatherInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherInfo.swift; sourceTree = "<group>"; };
 		B8DAB5BB1D660E1900235006 /* Tool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
 		B8F10D891D64599B003FA712 /* RightTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightTableViewCell.swift; sourceTree = "<group>"; };
 		B8F10D8A1D64599B003FA712 /* RightTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RightTableViewCell.xib; sourceTree = "<group>"; };
@@ -117,6 +121,7 @@
 		B84DC0D31D5B5BED002BC517 /* JFWeather */ = {
 			isa = PBXGroup;
 			children = (
+				B8BCF0561D66E03000BF46A4 /* Model */,
 				B8DAB5BA1D660DEF00235006 /* Tool */,
 				B89F2AAE1D62EC1C00CD618D /* Cells */,
 				B84DC1051D5B5F0A002BC517 /* Menu */,
@@ -171,9 +176,18 @@
 			name = Cells;
 			sourceTree = "<group>";
 		};
+		B8BCF0561D66E03000BF46A4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B8BCF0591D66E09E00BF46A4 /* WeatherInfo.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		B8DAB5BA1D660DEF00235006 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				B8BCF0541D66D2BD00BF46A4 /* weatherBG.plist */,
 				B8DAB5BB1D660E1900235006 /* Tool.swift */,
 			);
 			name = Tool;
@@ -285,6 +299,7 @@
 			files = (
 				B8F10D8C1D64599B003FA712 /* RightTableViewCell.xib in Resources */,
 				B89F2AB21D62EC6600CD618D /* LeftTableViewCell.xib in Resources */,
+				B8BCF0551D66D2BD00BF46A4 /* weatherBG.plist in Resources */,
 				B84DC0E21D5B5BED002BC517 /* LaunchScreen.storyboard in Resources */,
 				B84DC0DF1D5B5BED002BC517 /* Assets.xcassets in Resources */,
 				B84DC0DA1D5B5BED002BC517 /* Main.storyboard in Resources */,
@@ -315,6 +330,7 @@
 				B84DC10B1D5B5F95002BC517 /* RightTableViewController.swift in Sources */,
 				B84DC1091D5B5F68002BC517 /* LeftTableViewController.swift in Sources */,
 				B84DC0D71D5B5BED002BC517 /* ViewController.swift in Sources */,
+				B8BCF05A1D66E09E00BF46A4 /* WeatherInfo.swift in Sources */,
 				B8DAB5BC1D660E1900235006 /* Tool.swift in Sources */,
 				B84DC0DD1D5B5BED002BC517 /* JFWeather.xcdatamodeld in Sources */,
 				B8F10D8B1D64599B003FA712 /* RightTableViewCell.swift in Sources */,

@@ -9,6 +9,8 @@
 import UIKit
 
 class LeftTableViewController: UITableViewController {
+    
+    var dataSource = [WeatherInfo]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +24,20 @@ class LeftTableViewController: UITableViewController {
         
         self.tableView.separatorStyle = .None
         
+        //注册一个通知（执行refreshData方法）
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(refreshData), name: LeftControllerTypeChangedNotification, object: nil)
+    }
+    
+    func refreshData(sender:NSNotification) {
+        print(sender.userInfo)
+        let info = sender.userInfo!["data"] as! NSArray
+        
+        for ele in info {
+            let dic = ele as! NSDictionary
+            let weather = WeatherInfo(dic: dic)
+            self.dataSource.append(weather)
+            self.tableView.reloadData()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,7 +54,7 @@ class LeftTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 7
+        return self.dataSource.count
     }
 
     
@@ -46,14 +62,21 @@ class LeftTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as!
         LeftTableViewCell
         
-        if indexPath.row == 1 {
-            cell.dateLabel.text = "08/17"
-            cell.weekDayLabel.text = "明天"
+        let dayWeatherInfo = self.dataSource[indexPath.row]
+        cell.dateLabel.text = Tool.retrunNeedDay(dayWeatherInfo.days!)
+        cell.weekDayLabel.text = Tool.returnWeekDay(dayWeatherInfo.week!)
+        cell.temperatureLabel.text = dayWeatherInfo.temp_low! + "~" + dayWeatherInfo.temp_high!
+        cell.weatherLabel.text = dayWeatherInfo.weather
+        cell.weatherBgView.backgroundColor = Tool.returnWeatherBGColor(dayWeatherInfo.weather!)
+        
+        if indexPath.row == 0 {
+            
+            cell.weekDayLabel.text = "今天"
         }
         
-        if indexPath.row == 2 {
-            cell.dateLabel.text = "08/18"
-            cell.weekDayLabel.text = "周二"
+        if indexPath.row == 1 {
+            
+            cell.weekDayLabel.text = "明天"
         }
 
         return cell
