@@ -32,6 +32,11 @@ class LeftTableViewController: UITableViewController {
         //print(sender.userInfo)
         let info = sender.userInfo!["data"] as! NSArray
         
+        //判断左侧滑页面是否有信息，有的话清空
+        if self.dataSource.count > 0 {
+            self.dataSource.removeAll()
+        }
+        
         for ele in info {
             let dic = ele as! NSDictionary
             let weather = WeatherInfo(dic: dic)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController,NSXMLParserDelegate {
+class MainViewController: UIViewController,NSXMLParserDelegate,UITableViewDataSource,UITableViewDelegate {
     
     var myTableView:UITableView!
     
@@ -35,6 +35,15 @@ class MainViewController: UIViewController,NSXMLParserDelegate {
             self.requst("宁都")
         }
         
+        
+        self.myTableView.dataSource = self
+        self.myTableView.delegate = self
+        
+        let nib = UINib(nibName: "MainTableViewCell",bundle: NSBundle.mainBundle())
+        self.myTableView.registerNib(nib, forCellReuseIdentifier: "cellReuseIdentifier")
+        
+        //设置主页面高度
+        self.myTableView.rowHeight = 720
     }
     
     func layoutNavigationBar(date:String,weekDay:String,cityName:String) {
@@ -115,6 +124,16 @@ class MainViewController: UIViewController,NSXMLParserDelegate {
         //请求开始
         task.resume()
         
+    }
+    
+    //返回行数
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("cellReuseIdentifier") as! MainTableViewCell
+        return cell
     }
     
     
