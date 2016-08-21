@@ -8,7 +8,9 @@
 
 import UIKit
 
-class MainViewController: UIViewController,NSXMLParserDelegate,UITableViewDataSource,UITableViewDelegate {
+import CoreLocation
+
+class MainViewController: UIViewController,NSXMLParserDelegate,UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate {
     
     var myTableView:UITableView!
     
@@ -16,26 +18,108 @@ class MainViewController: UIViewController,NSXMLParserDelegate,UITableViewDataSo
     
     var cur_weather_info:NSDictionary?
     
+    //拿到位置的经纬度
+    var locationManager:CLLocationManager!
     
+    //根据经纬度解析地名
+    let geocoder:CLGeocoder = CLGeocoder()
+    
+    var current_city:String!
+    
+    //MARK:******定位*******
+    func location() {
+        //判断定位是否打开
+        if CLLocationManager.locationServicesEnabled() == false {
+            print("定位未打开")
+            
+        } else {
+            self.locationManager = CLLocationManager()
+            
+            //iOS8之后的定位需要用户授权
+//            let version = Float(NSNumberFormatter().numberFromString(UIDevice.currentDevice().systemVersion)!)
+//            if version >= 8.0 {
+//                self.locationManager.requestAlwaysAuthorization()
+//          }
+            
+            if NSProcessInfo().isOperatingSystemAtLeastVersion(NSOperatingSystemVersion(majorVersion: 8,minorVersion: 0,patchVersion: 0)) {
+                self.locationManager.requestAlwaysAuthorization()
+            }
+            
+            
+            //开始做定位
+            self.locationManager.startUpdatingLocation()
+            
+            self.locationManager.delegate = self
+        }
+    }
+    
+    //定位失败
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print("error:\(error.debugDescription)")
+    }
+    
+    //定位成功
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        //停止定位（定位成功后就停止定位，因为一直开着耗电）
+        manager.stopUpdatingLocation()
+        
+        if locations.count > 0 {
+           let locationInfo = locations.last
+            
+           //地名解析
+           geocoder.reverseGeocodeLocation(locationInfo!, completionHandler: { (placeMarks, error) in
+            if placeMarks?.count > 0 {
+                let placeM = placeMarks![0]
+                print(placeM.locality)
+                
+                //回到主线程更新UI
+                dispatch_async(dispatch_get_main_queue(),{
+                    self.current_city = placeM.locality!
+                    
+                    //将定位城市名称去掉“市”
+                    if self.current_city.containsString("市"){
+                        let range = self.current_city.rangeOfString("市")
+                        self.current_city.removeRange(range!)
+                    }
+                    
+                    self.initView()
+                    })
+            }
+           })
+            
+            
+        }
+    }
+    //MARK:******程序入口********
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor  = UIColor.blackColor()
-        self.layoutNavigationBar(Tool.returnDate(NSDate()), weekDay: Tool.returnWeekDay(NSDate()), cityName: "深圳")
         
-        self.requst("深圳")
+        //如果用户第一次使用 定位
+        //第二次 从本地读取 用户旧的位置，跟当前定位的比较 ，如果一样或者不一样  该怎样处理
         
-        self.myTableView = UITableView(frame: self.view.bounds,style: .Plain)
+        self.location()
+        
+            }
+    
+    func initView() {
+        
+        self.layoutNavigationBar(Tool.returnDate(NSDate()), weekDay: Tool.returnWeekDay(NSDate()), cityName: self.current_city)
+        
+        self.requst(self.current_city)
+        
+        self.myTableView = UITableView(frame: CGRectMake(0, 44, self.view.frame.size.width, self.view.frame.size.height),style: .Plain)
         self.view.addSubview(self.myTableView)
         
-//        //MJRefresh  下拉刷新
+        //MJRefresh  下拉刷新
         
         self.myTableView.mj_header = header
         
         header.refreshingBlock = {
             print("下拉刷新")
-            self.layoutNavigationBar(Tool.returnDate(NSDate()), weekDay: Tool.returnWeekDay(NSDate()), cityName: "宁都")
-            self.requst("宁都")
+            self.layoutNavigationBar(Tool.returnDate(NSDate()), weekDay: Tool.returnWeekDay(NSDate()), cityName: self.current_city)
+            self.requst(self.current_city)
         }
         
         
@@ -53,7 +137,9 @@ class MainViewController: UIViewController,NSXMLParserDelegate,UITableViewDataSo
         
         //将表格分割线取消
         self.myTableView.separatorStyle = .None
+
     }
+    
     
     //MARK:********导航栏**********
     
