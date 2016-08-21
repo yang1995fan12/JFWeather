@@ -10,9 +10,31 @@ import UIKit
 
 class MainTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var messageImageView: UIImageView!
+    
+    @IBOutlet weak var animationImageView: UIImageView!
+    
+    @IBOutlet weak var weatherImageView: UIImageView!
+    
+    @IBOutlet weak var weatherLabel: UILabel!
+    
+    @IBOutlet weak var current_temp_label: UILabel!
+    
+    @IBOutlet weak var range_temp_label: UILabel!
+    
+    @IBOutlet weak var windImageView: UIImageView!
+    
+    @IBOutlet weak var windLabel: UILabel!
+    
+    @IBOutlet weak var humidityImageView: UIImageView!
+    
+    @IBOutlet weak var range_humidity_label: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        //将选中状态改为没有
+        self.selectionStyle = .None
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

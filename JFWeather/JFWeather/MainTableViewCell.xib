@@ -55,8 +55,8 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23~33" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nIg-M6-mIw">
-                        <rect key="frame" x="205" y="411" width="51" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23°~33°" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nIg-M6-mIw">
+                        <rect key="frame" x="198" y="411" width="65" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="3VV-GV-bUO"/>
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="90" id="Qpp-RY-aBD"/>
@@ -128,6 +128,18 @@
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.0044165120430000003" green="0.61910288749999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+            <connections>
+                <outlet property="animationImageView" destination="KPk-aA-EGF" id="Lm2-Sw-QNp"/>
+                <outlet property="current_temp_label" destination="udy-rP-IX7" id="lrZ-Hk-Ji3"/>
+                <outlet property="humidityImageView" destination="5JB-BM-UBy" id="9ek-Ih-zNI"/>
+                <outlet property="messageImageView" destination="L3Y-Nc-LA9" id="Xz0-fb-RTo"/>
+                <outlet property="range_humidity_label" destination="ETJ-yI-W3k" id="kx9-cX-AwT"/>
+                <outlet property="range_temp_label" destination="nIg-M6-mIw" id="52h-bc-LNI"/>
+                <outlet property="weatherImageView" destination="Gde-iU-1GT" id="xNE-2U-f1i"/>
+                <outlet property="weatherLabel" destination="3kO-it-ILP" id="QKW-cW-0gc"/>
+                <outlet property="windImageView" destination="VXj-Og-0dw" id="EjD-7g-utf"/>
+                <outlet property="windLabel" destination="VQa-lG-H9G" id="CuR-qQ-E3G"/>
+            </connections>
             <point key="canvasLocation" x="287" y="257"/>
         </tableViewCell>
     </objects>

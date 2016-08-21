@@ -112,6 +112,27 @@ class Tool {
         
     }
     
+    
+    //返回天气的类型的图片
+    class func returnWeatherImage(weatherType:String)->UIImage? {
+        let weatherTypePath = NSBundle.mainBundle().pathForResource("weatherImage", ofType: "plist")
+        if weatherTypePath != nil {
+            let json = NSDictionary(contentsOfFile: weatherTypePath!)
+            
+            for element in (json?.allKeys)! {
+                if  weatherType.hasPrefix(element as! String) {
+                    
+                    let value = json![element as! String] as! String
+                    return UIImage(named: value)
+                    
+                }
+            }
+        }
+        
+        return nil
+        
+    }
+    
     //将年月日的时间类型转换成月日的时间类型
     class func retrunNeedDay(getDateString:String)->String {
         let dateFormatter = NSDateFormatter()
@@ -124,6 +145,8 @@ class Tool {
         let dateStr = newFormatter.stringFromDate(date!)
         return dateStr
     }
+    
+    
     //如果传入的是星期几就返回周几
     class func returnWeekDay(getWeekDayString:String)->String {
         if getWeekDayString == "星期一" {
