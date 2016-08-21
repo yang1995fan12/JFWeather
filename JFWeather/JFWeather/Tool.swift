@@ -165,6 +165,40 @@ class Tool {
             return "周日"
         }
     }
+    
+    //当天的天气信息传入到这个方法里，返回相应的图片
+    class func handleMessageImage(weatherInfo:NSDictionary)->UIImage? {
+        let temp_curr = weatherInfo["temp_curr"] as! String
+        let temp_curr_number = NSNumberFormatter().numberFromString(temp_curr)
+        if Int(temp_curr_number!) > 30 {
+            return UIImage(named: "jrgw_normal")
+        }
+        
+        var winp = weatherInfo["winp"] as! String
+        winp.removeRange(winp.rangeOfString("级")!)
+        let winp_number = Int(NSNumberFormatter().numberFromString(winp)!)
+        if winp_number > 7 {
+            return UIImage(named: "dflx_normal")
+        }
+        
+        let weather = weatherInfo["weather"] as! String
+        let weatherTypePath = NSBundle.mainBundle().pathForResource("weatherMessage", ofType: "plist")
+        if weatherTypePath != nil {
+            let json = NSDictionary(contentsOfFile: weatherTypePath!)
+            
+            for element in (json?.allKeys)! {
+                if  weather.hasPrefix(element as! String) {
+                    
+                    let value = json![element as! String] as! String
+                    return UIImage(named: value)
+                    
+                }
+            }
+        }
+        
+        
+        return nil
+    }
 
     
 }

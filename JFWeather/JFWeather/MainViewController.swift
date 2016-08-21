@@ -97,12 +97,11 @@ class MainViewController: UIViewController,NSXMLParserDelegate,UITableViewDataSo
     //xml和json
     func requst(cityName:String) {
         
-        let session = NSURLSession.sharedSession()
-
         //请求7天的天气情况
+        let session = NSURLSession.sharedSession()
+        
         //在URL中不能够出现中文等特殊的字符（所以要用stringByAddingPercentEncodingWithAllowedCharacter转换）
         let urlString = "http://api.k780.com:88/?app=weather.future&weaid=\(cityName)&&appkey=10003&sign=b59bc3ef6191eb9f747dd4e83c99f2a4&format=json".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-        
         
         let url = NSURL(string: urlString!)
         let task = session.dataTaskWithURL(url!) { (data, response, error) in
@@ -113,38 +112,16 @@ class MainViewController: UIViewController,NSXMLParserDelegate,UITableViewDataSo
                 
                 //json解析
                 let weatherInfo = try? NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments) as! NSDictionary
-                
                 let array = weatherInfo!["result"] as! NSArray
-                let dic = array[0] as! NSDictionary
-                let dayWeather = WeatherInfo(dic: dic)
-                //print(dayWeather.weather)
+
                 //更新UI必须要返回主线程执行
                 dispatch_async(dispatch_get_main_queue(),{
-                    self.view.backgroundColor = Tool.returnWeatherBGColor(dayWeather.weather!)
-                    self.myTableView.backgroundColor = Tool.returnWeatherBGColor(dayWeather.weather!)
-                    //导航栏颜色
-                    self.navigationController?.navigationBar.backgroundColor = Tool.returnWeatherBGColor(dayWeather.weather!)
-                    
-                    //拿到首页的cell,改变cell的颜色
-                    let indexPath = NSIndexPath(forRow: 0,inSection: 0)
-                    let cell = self.myTableView.cellForRowAtIndexPath(indexPath)
-                    cell?.backgroundColor = Tool.returnWeatherBGColor(dayWeather.weather!)
-                    
-                    //表视图呈现
-                    self.myTableView.hidden = false
                     
                     //发送通知
                     NSNotificationCenter.defaultCenter().postNotificationName(LeftControllerTypeChangedNotification, object: nil, userInfo: ["data":array])
-                    
-                    //停止刷新
-                    self.header.endRefreshing()
                 })
-                
-                
             }
-            
         }
-        
         //请求开始
         task.resume()
         
@@ -168,7 +145,25 @@ class MainViewController: UIViewController,NSXMLParserDelegate,UITableViewDataSo
 
                 //更新UI必须要返回主线程执行
                 dispatch_async(dispatch_get_main_queue(),{
+                    
+                    let cur_wether_msg = self.cur_weather_info!["weather"] as! String
+                    
+                    self.view.backgroundColor = Tool.returnWeatherBGColor(cur_wether_msg)
+                    self.myTableView.backgroundColor = Tool.returnWeatherBGColor(cur_wether_msg)
+                    //导航栏颜色
+                    self.navigationController?.navigationBar.backgroundColor = Tool.returnWeatherBGColor(cur_wether_msg)
+                    
+                    //拿到首页的cell,改变cell的颜色
+                    let indexPath = NSIndexPath(forRow: 0,inSection: 0)
+                    let cell = self.myTableView.cellForRowAtIndexPath(indexPath)
+                    cell?.backgroundColor = Tool.returnWeatherBGColor(cur_wether_msg)
+                    
+                    //表视图呈现
+                    self.myTableView.hidden = false
 
+                    //停止刷新
+                    self.header.endRefreshing()
+                    
                     self.myTableView.reloadData()
                 })
                 
@@ -195,7 +190,7 @@ class MainViewController: UIViewController,NSXMLParserDelegate,UITableViewDataSo
             //需要构建逻辑代码来显示不同的图片
             
             let weather = self.cur_weather_info!["weather"] as! String
-            cell.messageImageView.image = Tool.returnWeatherImage(weather)
+            cell.weatherImageView.image = Tool.returnWeatherImage(weather)
             cell.weatherLabel.text = weather
             
             let temp_curr = self.cur_weather_info!["temp_curr"] as! String
