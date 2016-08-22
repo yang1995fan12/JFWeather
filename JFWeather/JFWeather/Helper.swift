@@ -18,6 +18,64 @@ let AutoLocationNotification = "AutoLocationNotification"
 
 let ChooseLocationCityNotification = "ChooseLocationCityNotification"
 
+let DeleteHistoryCityNotification = "DeleteHistoryCityNotification"
+
+//如何存储历史城市记录
+//文件读写
+let history_city_path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) [0] + "/" + "history_city_path.txt"
+
 class Helper: NSObject {
 
+    class func readChaceCity()->[String] {
+        
+        let array = NSArray(contentsOfFile:history_city_path)
+        if array == nil {
+            return []
+        } else {
+            if array?.count == 0 {
+                return []
+            } else {
+                var citys = [String]()
+                for ele in array! {
+                    citys.append(ele as! String)
+                }
+                return citys
+            }
+        }
+        
+    }
+    
+    class func inseartCity(city:String)->Bool {
+        //判断是否存在
+        var old_citys = Helper.readChaceCity()
+        if old_citys.contains(city) {
+            let index = old_citys.indexOf(city)
+            old_citys.removeAtIndex(index!)
+        }
+        //将city插入到数据的最前面
+        old_citys.insert(city, atIndex: 0)
+        
+        let array = NSMutableArray()
+        for ele in old_citys {
+            array.addObject(ele)
+        }
+        
+        return array.writeToFile(history_city_path, atomically: true)
+    }
+    
+    class func deleteCity(city:String)->Bool {
+        //判断是否存在
+        var old_citys = Helper.readChaceCity()
+        if old_citys.contains(city) {
+            let index = old_citys.indexOf(city)
+            old_citys.removeAtIndex(index!)
+        }
+
+        let array = NSMutableArray()
+        for ele in old_citys {
+            array.addObject(ele)
+        }
+        
+        return array.writeToFile(history_city_path, atomically: true)
+    }
 }

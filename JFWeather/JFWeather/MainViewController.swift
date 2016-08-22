@@ -83,6 +83,8 @@ class MainViewController: UIViewController,NSXMLParserDelegate,UITableViewDataSo
                         
                         
                         self.hub.labelText = "定位成功,正在读取天气信息..."
+                        
+                        Helper.inseartCity(self.current_city)
                     }
                     
                     self.initView()
@@ -101,6 +103,7 @@ class MainViewController: UIViewController,NSXMLParserDelegate,UITableViewDataSo
     
     func chooseLocationCityAction (sender:NSNotification) {
         self.current_city = sender.userInfo!["choose_city"] as! String
+        Helper.inseartCity(self.current_city)
         self.initView()
     }
     

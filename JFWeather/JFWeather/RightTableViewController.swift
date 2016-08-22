@@ -11,7 +11,7 @@ import UIKit
 class RightTableViewController: UITableViewController {
     
     //需要从本地做存储
-    let historyCity = ["广州","深圳","上海","赣州","宁都"]
+    var historyCity = Helper.readChaceCity()
     
     let section0Title = ["提醒","设置","支持"]
     let section0Image = ["reminder","setting_right","contact"]
@@ -30,6 +30,15 @@ class RightTableViewController: UITableViewController {
         
         self.tableView.separatorStyle = .None
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadTableView), name: AutoLocationNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadTableView), name: ChooseLocationCityNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadTableView), name: DeleteHistoryCityNotification, object: nil)
+        
+    }
+    
+    func reloadTableView(sender:NSNotification) {
+        self.historyCity = Helper.readChaceCity()
+        self.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,6 +67,7 @@ class RightTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as!
         RightTableViewCell
         
+        cell.controller = self
         if indexPath.section == 0 {
             
             cell.titleLabel.text = section0Title[indexPath.row]
@@ -131,9 +141,12 @@ class RightTableViewController: UITableViewController {
                     
                 })
                 
-            } else if indexPath == 1 {
+            } else if indexPath.row == 1 {
+                
+                NSNotificationCenter.defaultCenter().postNotificationName(AutoLocationNotification, object: nil)
                 print("自动定位")
             } else {
+                NSNotificationCenter.defaultCenter().postNotificationName(ChooseLocationCityNotification, object: nil, userInfo: ["choose_city":self.historyCity[indexPath.row - 2]])
                 print("历史城市")
             }
         }
