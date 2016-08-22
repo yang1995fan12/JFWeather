@@ -115,6 +115,30 @@ class RightTableViewController: UITableViewController {
             
         }
     }
+    
+    
+    var controller:UIViewController?
+    override func tableView(tableView:UITableView,didSelectRowAtIndexPath indexPath:NSIndexPath) {
+        if indexPath.section == 1 {
+            if indexPath.row == 0 {
+                print("添加城市")
+                
+                let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+                
+                let addNewCityController = storyBoard.instantiateViewControllerWithIdentifier("AddNewCityTableViewController") as! AddNewCityTableViewController
+                
+                self.controller?.presentViewController(addNewCityController, animated: true, completion: { 
+                    
+                })
+                
+            } else if indexPath == 1 {
+                print("自动定位")
+            } else {
+                print("历史城市")
+            }
+        }
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

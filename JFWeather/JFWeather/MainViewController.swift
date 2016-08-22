@@ -94,6 +94,15 @@ class MainViewController: UIViewController,NSXMLParserDelegate,UITableViewDataSo
         }
     }
     
+    //MARK:*******通知********
+    func autoLocationAction(sender:NSNotification) {
+        self.location()
+    }
+    
+    func chooseLocationCityAction (sender:NSNotification) {
+        self.current_city = sender.userInfo!["choose_city"] as! String
+        self.initView()
+    }
     
     //MARK:******程序入口********
     
@@ -101,6 +110,9 @@ class MainViewController: UIViewController,NSXMLParserDelegate,UITableViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(autoLocationAction), name: AutoLocationNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(chooseLocationCityAction), name: ChooseLocationCityNotification, object: nil)
         
         self.view.backgroundColor  = UIColor.blackColor()
         
@@ -119,34 +131,39 @@ class MainViewController: UIViewController,NSXMLParserDelegate,UITableViewDataSo
         
         self.requst(self.current_city)
         
-        self.myTableView = UITableView(frame: CGRectMake(0, 44, self.view.frame.size.width, self.view.frame.size.height),style: .Plain)
-        self.view.addSubview(self.myTableView)
-        
-        //MJRefresh  下拉刷新
-        
-        self.myTableView.mj_header = header
-        
-        header.refreshingBlock = {
-            print("下拉刷新")
-            self.layoutNavigationBar(Tool.returnDate(NSDate()), weekDay: Tool.returnWeekDay(NSDate()), cityName: self.current_city)
-            self.requst(self.current_city)
+        if self.myTableView == nil {
+            //回到ScrollView的原点坐标
+            self.automaticallyAdjustsScrollViewInsets = false
+            
+            self.myTableView = UITableView(frame: CGRectMake(0, 44, self.view.frame.size.width, self.view.frame.size.height),style: .Plain)
+            self.view.addSubview(self.myTableView)
+            
+            //MJRefresh  下拉刷新
+            
+            self.myTableView.mj_header = header
+            
+            header.refreshingBlock = {
+                print("下拉刷新")
+                self.layoutNavigationBar(Tool.returnDate(NSDate()), weekDay: Tool.returnWeekDay(NSDate()), cityName: self.current_city)
+                self.requst(self.current_city)
+            }
+            
+            
+            self.myTableView.dataSource = self
+            self.myTableView.delegate = self
+            
+            let nib = UINib(nibName: "MainTableViewCell",bundle: NSBundle.mainBundle())
+            self.myTableView.registerNib(nib, forCellReuseIdentifier: "cellReuseIdentifier")
+            
+            //设置主页面高度
+            self.myTableView.rowHeight = 720
+            
+            //先把表视图隐藏
+            self.myTableView.hidden = true
+            
+            //将表格分割线取消
+            self.myTableView.separatorStyle = .None
         }
-        
-        
-        self.myTableView.dataSource = self
-        self.myTableView.delegate = self
-        
-        let nib = UINib(nibName: "MainTableViewCell",bundle: NSBundle.mainBundle())
-        self.myTableView.registerNib(nib, forCellReuseIdentifier: "cellReuseIdentifier")
-        
-        //设置主页面高度
-        self.myTableView.rowHeight = 720
-        
-        //先把表视图隐藏
-        self.myTableView.hidden = true
-        
-        //将表格分割线取消
-        self.myTableView.separatorStyle = .None
 
     }
     
@@ -263,7 +280,7 @@ class MainViewController: UIViewController,NSXMLParserDelegate,UITableViewDataSo
                     self.myTableView.reloadData()
                     
                     //隐藏
-                    self.hub.hide(true)
+                    self.hub.hideAnimated(true)
                 })
                 
             }

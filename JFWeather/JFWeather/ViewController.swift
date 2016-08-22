@@ -42,6 +42,7 @@ class ViewController: UIViewController {
         
         self.rightController = RightTableViewController()
         self.view.addSubview((self.rightController?.view)!)
+        self.rightController?.controller = self
         
         self.view.addSubview((self.mainViewController?.view)!)
         
@@ -54,6 +55,16 @@ class ViewController: UIViewController {
         let pan = UIPanGestureRecognizer(target: self, action: #selector(panAction))
         
         self.mainViewController?.view.addGestureRecognizer(pan)
+        
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showMainViewAction), name: AutoLocationNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(showMainViewAction), name: ChooseLocationCityNotification, object: nil)
+    }
+    
+    //MARK:***通知****
+    
+    func showMainViewAction(sender:NSNotification) {
+        self.showMianView()
     }
     
     func panAction(sender:UIPanGestureRecognizer){

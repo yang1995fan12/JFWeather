@@ -14,6 +14,10 @@ let leftControllerAndRightControllerBGColor = UIColor(red:CGFloat(40.0/255.0),gr
 //通知名称
 let LeftControllerTypeChangedNotification = "LeftControllerTypeChangedNotification"
 
+let AutoLocationNotification = "AutoLocationNotification"
+
+let ChooseLocationCityNotification = "ChooseLocationCityNotification"
+
 class Helper: NSObject {
 
 }
