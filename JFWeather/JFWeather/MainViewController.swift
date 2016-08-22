@@ -80,6 +80,9 @@ class MainViewController: UIViewController,NSXMLParserDelegate,UITableViewDataSo
                     if self.current_city.containsString("市"){
                         let range = self.current_city.rangeOfString("市")
                         self.current_city.removeRange(range!)
+                        
+                        
+                        self.hub.labelText = "定位成功,正在读取天气信息..."
                     }
                     
                     self.initView()
@@ -90,14 +93,21 @@ class MainViewController: UIViewController,NSXMLParserDelegate,UITableViewDataSo
             
         }
     }
+    
+    
     //MARK:******程序入口********
+    
+    var hub:MBProgressHUD!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor  = UIColor.blackColor()
         
-        //如果用户第一次使用 定位
-        //第二次 从本地读取 用户旧的位置，跟当前定位的比较 ，如果一样或者不一样  该怎样处理
+        //定位之前 动画
+        self.hub = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        self.hub.labelText = "正在定位..."
+        
         
         self.location()
         
@@ -251,6 +261,9 @@ class MainViewController: UIViewController,NSXMLParserDelegate,UITableViewDataSo
                     self.header.endRefreshing()
                     
                     self.myTableView.reloadData()
+                    
+                    //隐藏
+                    self.hub.hide(true)
                 })
                 
             }

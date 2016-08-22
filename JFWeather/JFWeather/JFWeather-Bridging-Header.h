@@ -10,5 +10,6 @@
 #define JFWeather_Bridging_Header_h
 
 #import "MJRefresh.h"
+#import <MBProgressHUD.h>
 
 #endif /* JFWeather_Bridging_Header_h */
