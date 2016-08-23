@@ -8,6 +8,23 @@
 
 import UIKit
 
+//ShareSDK
+let ShareSDK_AppKey = "1668da0b60824"
+
+//新浪
+let Sina_AppKey = "1528259324"
+let Sina_AppSecret = "b605c18f3a773347dbfd2bd667d28b32"
+
+let Sina_OAuth_Html = "http://www.baidu.com"
+
+//微信
+
+
+//QQ
+let QQ_AppID = "1105638816"
+let QQ_AppKey = "f9xp11737m26OBoj"
+
+
 //左右界面的背景颜色
 let leftControllerAndRightControllerBGColor = UIColor(red:CGFloat(40.0/255.0),green:CGFloat(37.0/255.0),blue:CGFloat(40.0/255.0),alpha:1.0)
 

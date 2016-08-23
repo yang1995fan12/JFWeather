@@ -34,6 +34,7 @@ class ViewController: UIViewController {
         
         //将主，左，右三个视图添加到窗口上
         let rootController = MainViewController()
+        rootController.rootController = self
         self.mainViewController = UINavigationController(rootViewController:rootController)
         
         

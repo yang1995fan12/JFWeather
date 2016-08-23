@@ -10,6 +10,8 @@ import UIKit
 
 import CoreLocation
 
+let Current_City_Key = "Current_City_Key"
+
 class MainViewController: UIViewController,NSXMLParserDelegate,UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate {
     
     var myTableView:UITableView!
@@ -85,6 +87,11 @@ class MainViewController: UIViewController,NSXMLParserDelegate,UITableViewDataSo
                         self.hub.labelText = "定位成功,正在读取天气信息..."
                         
                         Helper.inseartCity(self.current_city)
+                        
+                        //保存城市
+                        NSUserDefaults.standardUserDefaults().setObject(self.current_city, forKey: Current_City_Key)
+                        //结束存储
+                        NSUserDefaults.standardUserDefaults().synchronize()
                     }
                     
                     self.initView()
@@ -119,14 +126,21 @@ class MainViewController: UIViewController,NSXMLParserDelegate,UITableViewDataSo
         
         self.view.backgroundColor  = UIColor.blackColor()
         
-        //定位之前 动画
+        
+        let theCity = NSUserDefaults.standardUserDefaults().valueForKey(Current_City_Key)
+        
         self.hub = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        self.hub.labelText = "正在定位..."
-        
-        
-        self.location()
-        
-            }
+        if theCity == nil {
+            //定位之前 动画
+            
+            self.hub.labelText = "正在定位..."
+            self.location()
+        } else {
+            self.current_city = theCity as! String
+            self.initView()
+        }
+       
+    }
     
     func initView() {
         
@@ -198,8 +212,37 @@ class MainViewController: UIViewController,NSXMLParserDelegate,UITableViewDataSo
     }
     
     //点击分享事件
+    
+    var rootController:UIViewController?
     func shareAction(sender: UIBarButtonItem) {
         
+        let actionSheet = UIAlertController(title: "分享天气",message: "",preferredStyle: .ActionSheet)
+        let sinaAction = UIAlertAction(title: "分享到新浪微博",style: .Default) { (action:UIAlertAction) -> Void in
+        }
+        actionSheet.addAction(sinaAction)
+        
+        let QQFriendAction = UIAlertAction(title: "分享到QQ好友",style: .Default) { (action:UIAlertAction) -> Void in
+        }
+        actionSheet.addAction(QQFriendAction)
+        
+        let QQZoneAction = UIAlertAction(title: "分享到QQ空间",style: .Default) { (action:UIAlertAction) -> Void in
+        }
+        actionSheet.addAction(QQZoneAction)
+        
+        let wechatFriendAction = UIAlertAction(title: "分享到微信好友",style: .Default) { (action:UIAlertAction) -> Void in
+        }
+        actionSheet.addAction(wechatFriendAction)
+        
+        let wechatCicleAction = UIAlertAction(title: "分享到朋友圈",style: .Default) { (action:UIAlertAction) -> Void in
+        }
+        actionSheet.addAction(wechatCicleAction)
+        
+        let cancleAction = UIAlertAction(title: "取消",style: .Default) { (action:UIAlertAction) -> Void in
+        }
+        actionSheet.addAction(cancleAction)
+        
+        
+        self.rootController?.presentViewController(actionSheet, animated: true, completion: nil)
     }
     
     //点击设置事件

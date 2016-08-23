@@ -221,6 +221,7 @@
 				B89F2AAE1D62EC1C00CD618D /* Cells */,
 				B84DC1051D5B5F0A002BC517 /* Menu */,
 				B84DC0D41D5B5BED002BC517 /* AppDelegate.swift */,
+				B84DC0D61D5B5BED002BC517 /* ViewController.swift */,
 				B84DC0D81D5B5BED002BC517 /* Main.storyboard */,
 				B84DC0DE1D5B5BED002BC517 /* Assets.xcassets */,
 				B84DC0E01D5B5BED002BC517 /* LaunchScreen.storyboard */,
@@ -228,7 +229,6 @@
 				B84DC0DB1D5B5BED002BC517 /* JFWeather.xcdatamodeld */,
 				B8F10D8D1D64655E003FA712 /* Helper.swift */,
 				B8BCF09C1D67147A00BF46A4 /* JFWeather-Bridging-Header.h */,
-				B84DC0D61D5B5BED002BC517 /* ViewController.swift */,
 				B8337FD91D6AD93A00D3C427 /* default-city.plist */,
 			);
 			path = JFWeather;
