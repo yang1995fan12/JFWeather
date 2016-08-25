@@ -199,6 +199,17 @@ class Tool {
         
         return nil
     }
+    
+    
+    //将某个view 转成 UIImage
+    class func getImageFromView(view:UIView)->UIImage {
+        UIGraphicsBeginImageContext(view.bounds.size)
+        view.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+        
+    }
 
     
 }

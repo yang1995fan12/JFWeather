@@ -17,8 +17,9 @@ let Sina_AppSecret = "b605c18f3a773347dbfd2bd667d28b32"
 
 let Sina_OAuth_Html = "http://www.baidu.com"
 
-//微信
-
+//微信(别人的等自己的好了换掉)
+let weixin_AppID = "wx8571a4f11404252a"
+let weixin_AppSecret = "129663c38c2a9302ec7ba3b608a245c8"
 
 //QQ
 let QQ_AppID = "1105638816"

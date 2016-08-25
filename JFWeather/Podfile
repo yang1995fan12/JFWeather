@@ -1,1 +1,6 @@
 pod 'MBProgressHUD', '~> 1.0.0'
+pod 'ShareSDK3'
+pod 'MOBFoundation'
+pod 'ShareSDK3/ShareSDKPlatforms/QQ'
+pod 'ShareSDK3/ShareSDKPlatforms/SinaWeibo'
+pod 'ShareSDK3/ShareSDKPlatforms/WeChat'

@@ -1,10 +1,24 @@
 PODS:
   - MBProgressHUD (1.0.0)
+  - MOBFoundation (2.0.10)
+  - ShareSDK3 (3.4.0):
+    - ShareSDK3/ShareSDK (= 3.4.0)
+  - ShareSDK3/ShareSDK (3.4.0)
+  - ShareSDK3/ShareSDKPlatforms/QQ (3.4.0)
+  - ShareSDK3/ShareSDKPlatforms/SinaWeibo (3.4.0)
+  - ShareSDK3/ShareSDKPlatforms/WeChat (3.4.0)
 
 DEPENDENCIES:
   - MBProgressHUD (~> 1.0.0)
+  - MOBFoundation
+  - ShareSDK3
+  - ShareSDK3/ShareSDKPlatforms/QQ
+  - ShareSDK3/ShareSDKPlatforms/SinaWeibo
+  - ShareSDK3/ShareSDKPlatforms/WeChat
 
 SPEC CHECKSUMS:
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  MOBFoundation: be1a5556482800c5c3515f8fbd32770a6622bd42
+  ShareSDK3: df89140111729eae7a2bf06688372af969322a37
 
 COCOAPODS: 0.39.0

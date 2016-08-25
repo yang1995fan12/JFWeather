@@ -17,6 +17,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        
+        /**
+         *  设置ShareSDK的appKey，如果尚未在ShareSDK官网注册过App，请移步到http://mob.com/login 登录后台进行应用注册，
+         *  在将生成的AppKey传入到此方法中。
+         *  方法中的第二个参数用于指定要使用哪些社交平台，以数组形式传入。第三个参数为需要连接社交平台SDK时触发，
+         *  在此事件中写入连接代码。第四个参数则为配置本地社交平台时触发，根据返回的平台类型来配置平台信息。
+         *  如果您使用的时服务端托管平台信息时，第二、四项参数可以传入nil，第三项参数则根据服务端托管平台来决定要连接的社交SDK。
+         */
+        //第一步,注册将微信，微博，QQAppID添加到下面
+        ShareSDK.registerApp(ShareSDK_AppKey, activePlatforms: [SSDKPlatformType.TypeSinaWeibo.rawValue,SSDKPlatformType.TypeWechat.rawValue,SSDKPlatformType.TypeQQ.rawValue], onImport: { (platform : SSDKPlatformType) in
+            switch platform {
+            case .TypeQQ :
+                ShareSDKConnector.connectQQ(QQApiInterface.classForCoder(), tencentOAuthClass: TencentOAuth.classForCoder())
+                break
+            case .TypeWechat :
+                ShareSDKConnector.connectWeChat(WXApi.classForCoder())
+                break
+            case .TypeSinaWeibo :
+                ShareSDKConnector.connectWeibo(WeiboSDK.classForCoder())
+                break
+            default :
+                break
+            }
+            }) { (platform : SSDKPlatformType,appInfo : NSMutableDictionary!) in
+                switch platform {
+                case .TypeQQ :
+                    appInfo.SSDKSetupQQByAppId(QQ_AppID, appKey: QQ_AppKey, authType: SSDKAuthTypeBoth)
+                case .TypeSinaWeibo :
+                    appInfo.SSDKSetupSinaWeiboByAppKey(Sina_AppKey, appSecret: Sina_AppSecret, redirectUri: Sina_OAuth_Html, authType: SSDKAuthTypeBoth)
+                case .TypeWechat :
+                    appInfo.SSDKSetupWeChatByAppId(weixin_AppID, appSecret: weixin_AppSecret)
+                default :
+                    break
+                }
+        }
+        
+        
+        //第二步，适配 ios9 
+        
+        
+        
         //配置导航控制器
         UINavigationBar.appearance().setBackgroundImage(UIImage(),forBarPosition: .Any,barMetrics: .Default)
         UINavigationBar.appearance().shadowImage = UIImage()
