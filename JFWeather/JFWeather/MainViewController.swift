@@ -222,50 +222,115 @@ class MainViewController: UIViewController,NSXMLParserDelegate,UITableViewDataSo
         let sinaAction = UIAlertAction(title: "分享到新浪微博",style: .Default) { (action:UIAlertAction) -> Void in
             
             let mDic = NSMutableDictionary()
-            mDic.SSDKSetupSinaWeiboShareParamsByText("", title: "飓风天气", image: Tool.getImageFromView((self.navigationController?.view)!), url: nil, latitude: 0, longitude: 0, objectID: nil, type: .Auto)
-            ShareSDK.share(.TypeSinaWeibo, parameters: mDic, onStateChanged: { (state, userData, contentEntity, errpr) in
-                print("成功分享到微博")
-            })
+            mDic.SSDKSetupSinaWeiboShareParamsByText("测试", title: "飓风天气", image: Tool.getImageFromView((self.navigationController?.view)!), url: nil, latitude: 0, longitude: 0, objectID: nil, type: .Auto)
+            
+            ShareSDK.share(SSDKPlatformType.TypeSinaWeibo, parameters: mDic) { (state : SSDKResponseState, userData : [NSObject : AnyObject]!, contentEntity :SSDKContentEntity!, error : NSError!) -> Void in
+                
+                switch state{
+                    
+                case SSDKResponseState.Success:
+                    print("分享成功")
+                    let alert = UIAlertView(title: "分享成功", message: "分享成功", delegate: self, cancelButtonTitle: "取消")
+                    alert.show()
+                case SSDKResponseState.Fail:    print("分享失败,错误描述:\(error)")
+                case SSDKResponseState.Cancel:  print("分享取消")
+                    
+                default:
+                    break
+                }
+            }
         }
         actionSheet.addAction(sinaAction)
         
         let QQFriendAction = UIAlertAction(title: "分享到QQ好友",style: .Default) { (action:UIAlertAction) -> Void in
             
             let mDic = NSMutableDictionary()
-            mDic.SSDKSetupQQParamsByText("", title: "飓风天气", url: nil, thumbImage: Tool.getImageFromView((self.navigationController?.view)!), image: Tool.getImageFromView((self.navigationController?.view)!), type: .Auto, forPlatformSubType: .SubTypeQQFriend)
-            ShareSDK.share(.SubTypeQQFriend, parameters: mDic, onStateChanged: { (state, userData, contentEntity, errpr) in
-                print("成功分享到QQ好友")
-            })
+            mDic.SSDKSetupQQParamsByText("测试", title: "飓风天气", url: nil, thumbImage: Tool.getImageFromView((self.navigationController?.view)!), image: Tool.getImageFromView((self.navigationController?.view)!), type: .Auto, forPlatformSubType: .SubTypeQQFriend)
+            
+            ShareSDK.share(.SubTypeQQFriend, parameters: mDic) { (state : SSDKResponseState, userData : [NSObject : AnyObject]!, contentEntity :SSDKContentEntity!, error : NSError!) -> Void in
+                
+                switch state{
+                    
+                case SSDKResponseState.Success:
+                    print("成功分享到QQ好友")
+                    let alert = UIAlertView(title: "分享成功", message: "分享成功", delegate: self, cancelButtonTitle: "取消")
+                    alert.show()
+                case SSDKResponseState.Fail:    print("分享失败,错误描述:\(error)")
+                case SSDKResponseState.Cancel:  print("分享取消")
+                    
+                default:
+                    break
+                }
+            }
         }
         actionSheet.addAction(QQFriendAction)
         
         let QQZoneAction = UIAlertAction(title: "分享到QQ空间",style: .Default) { (action:UIAlertAction) -> Void in
             
             let mDic = NSMutableDictionary()
-            mDic.SSDKSetupQQParamsByText("", title: "飓风天气", url: NSURL(string: "http://www.baidu.com"), thumbImage: Tool.getImageFromView((self.navigationController?.view)!), image: Tool.getImageFromView((self.navigationController?.view)!), type: .Auto, forPlatformSubType: .SubTypeQZone)
-            ShareSDK.share(.SubTypeQZone, parameters: mDic, onStateChanged: { (state, userData, contentEntity, errpr) in
-                print("成功分享到QQ空间")
-            })
+            mDic.SSDKSetupQQParamsByText("测试", title: "飓风天气", url: NSURL(string: "http://www.baidu.com"), thumbImage: Tool.getImageFromView((self.navigationController?.view)!), image: Tool.getImageFromView((self.navigationController?.view)!), type: .Auto, forPlatformSubType: .SubTypeQZone)
+            
+            ShareSDK.share(.SubTypeQZone, parameters: mDic) { (state : SSDKResponseState, userData : [NSObject : AnyObject]!, contentEntity :SSDKContentEntity!, error : NSError!) -> Void in
+                
+                switch state{
+                    
+                case SSDKResponseState.Success:
+                    print("成功分享到QQ空间")
+                    let alert = UIAlertView(title: "分享成功", message: "分享成功", delegate: self, cancelButtonTitle: "取消")
+                    alert.show()
+                case SSDKResponseState.Fail:    print("分享失败,错误描述:\(error)")
+                case SSDKResponseState.Cancel:  print("分享取消")
+                    
+                default:
+                    break
+                }
+            }
         }
         actionSheet.addAction(QQZoneAction)
         
         let wechatFriendAction = UIAlertAction(title: "分享到微信好友",style: .Default) { (action:UIAlertAction) -> Void in
             
             let mDic = NSMutableDictionary()
-            mDic.SSDKSetupWeChatParamsByText("", title: "飓风天气", url: nil, thumbImage: Tool.getImageFromView((self.navigationController?.view)!), image: Tool.getImageFromView((self.navigationController?.view)!), musicFileURL: nil, extInfo: nil, fileData: UIImagePNGRepresentation(Tool.getImageFromView((self.navigationController?.view)!)), emoticonData: nil, sourceFileExtension: "png", sourceFileData: UIImagePNGRepresentation(Tool.getImageFromView((self.navigationController?.view)!)), type: .Auto, forPlatformSubType: .SubTypeWechatSession)
-            ShareSDK.share(.SubTypeWechatSession, parameters: mDic, onStateChanged: { (state, userData, contentEntity, errpr) in
-                print("成功分享到微信好友")
-            })
+            mDic.SSDKSetupWeChatParamsByText("测试", title: "飓风天气", url: nil, thumbImage: Tool.getImageFromView((self.navigationController?.view)!), image: Tool.getImageFromView((self.navigationController?.view)!), musicFileURL: nil, extInfo: nil, fileData: UIImagePNGRepresentation(Tool.getImageFromView((self.navigationController?.view)!)), emoticonData: nil, sourceFileExtension: "png", sourceFileData: UIImagePNGRepresentation(Tool.getImageFromView((self.navigationController?.view)!)), type: .Auto, forPlatformSubType: .SubTypeWechatSession)
+            
+            ShareSDK.share(.SubTypeWechatSession, parameters: mDic) { (state : SSDKResponseState, userData : [NSObject : AnyObject]!, contentEntity :SSDKContentEntity!, error : NSError!) -> Void in
+                
+                switch state{
+                    
+                case SSDKResponseState.Success:
+                    print("成功分享到微信好友")
+                    let alert = UIAlertView(title: "分享成功", message: "分享成功", delegate: self, cancelButtonTitle: "取消")
+                    alert.show()
+                case SSDKResponseState.Fail:    print("分享失败,错误描述:\(error)")
+                case SSDKResponseState.Cancel:  print("分享取消")
+                    
+                default:
+                    break
+                }
+            }
         }
         actionSheet.addAction(wechatFriendAction)
         
         let wechatCicleAction = UIAlertAction(title: "分享到朋友圈",style: .Default) { (action:UIAlertAction) -> Void in
             
             let mDic = NSMutableDictionary()
-            mDic.SSDKSetupWeChatParamsByText("", title: "飓风天气", url: nil, thumbImage: Tool.getImageFromView((self.navigationController?.view)!), image: Tool.getImageFromView((self.navigationController?.view)!), musicFileURL: nil, extInfo: nil, fileData: UIImagePNGRepresentation(UIImage(named: "Default")!), emoticonData: nil, sourceFileExtension: "png", sourceFileData: UIImagePNGRepresentation(Tool.getImageFromView((self.navigationController?.view)!)), type: .Auto, forPlatformSubType: .SubTypeWechatTimeline)
-            ShareSDK.share(.SubTypeWechatTimeline, parameters: mDic, onStateChanged: { (state, userData, contentEntity, errpr) in
-                print("成功分享到朋友圈")
-            })
+            mDic.SSDKSetupWeChatParamsByText("测试", title: "飓风天气", url: nil, thumbImage: Tool.getImageFromView((self.navigationController?.view)!), image: Tool.getImageFromView((self.navigationController?.view)!), musicFileURL: nil, extInfo: nil, fileData: UIImagePNGRepresentation(UIImage(named: "Default")!), emoticonData: nil, sourceFileExtension: "png", sourceFileData: UIImagePNGRepresentation(Tool.getImageFromView((self.navigationController?.view)!)), type: .Auto, forPlatformSubType: .SubTypeWechatTimeline)
+            
+            ShareSDK.share(.SubTypeWechatTimeline, parameters: mDic) { (state : SSDKResponseState, userData : [NSObject : AnyObject]!, contentEntity :SSDKContentEntity!, error : NSError!) -> Void in
+                
+                switch state{
+                    
+                case SSDKResponseState.Success:
+                    print("成功分享到朋友圈")
+                    let alert = UIAlertView(title: "分享成功", message: "分享成功", delegate: self, cancelButtonTitle: "取消")
+                    alert.show()
+                case SSDKResponseState.Fail:    print("分享失败,错误描述:\(error)")
+                case SSDKResponseState.Cancel:  print("分享取消")
+                    
+                default:
+                    break
+                }
+            }
         }
         actionSheet.addAction(wechatCicleAction)
         
